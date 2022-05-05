@@ -21,6 +21,7 @@ const Keyboard = {
 
     this.elements.main.classList.add('keyboard', '1keyboard--hidden');
     this.elements.keysContainer.classList.add('keyboard__keys');
+    this.elements.keysContainer.appendChild(this._createKeys());
 
     this.elements.main.appendChild(this.elements.keysContainer);
     document.body.appendChild(this.elements.main);
@@ -30,9 +31,9 @@ const Keyboard = {
     const fragment = document.createDocumentFragment();
     const keyLayout = [
       '`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'backspace',
-      'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\/',
-       'caps', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '\'', 'enter',
-       'Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', 'Shift',
+      'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '|',
+       'caps', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', `'`, 'enter',
+       'shift_', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', 'shift',
        'Ctrl', 'Win', 'Alt', 'space', 'Alt', 'Ctrl', 'done'
         ];
 
@@ -42,15 +43,15 @@ const createIconHTML = (icon_name) => {
 
 keyLayout.forEach(key => {
   const keyElement = document.createElement('button');
-  const insertLineBreak = ['Backspace', '\/', 'Enter', 'Shift'].indexOf(key) !== -1;
+  const insertLineBreak = ['backspace', '|', 'enter', 'shift'].indexOf(key) !== -1;
 
   keyElement.setAttribute('type', 'button');
   keyElement.classList.add('keyboard__key');
 
   switch (key) {
-    case 'bacspase':
+    case 'backspace':
       keyElement.classList.add('keyboard__key--wide');
-      keyElement.innerHTML = createIconHTML('Bacspace');
+      keyElement.innerHTML = createIconHTML('backspace');
 
       keyElement.addEventListener('click', () => {
         this.properties.value = this.properties.value.substring(0, this.properties.value.length - 1);
@@ -104,17 +105,25 @@ keyLayout.forEach(key => {
               break;
 
               default:
-                keyElement.textContent = key.toLocaleLowerCase();
+                keyElement.textContent = key.toLowerCase();
 
                 keyElement.addEventListener('click', () => {
-                  this.properties.value += this.properties.capsLock ? key.toUpperCase() : key.toLowerCase;
+                  this.properties.value += this.properties.capsLock ? key.toUpperCase() : key.toLowerCase();
                   this._triggerEvent('oninput');
                 })
 
                 break;
   }
+
+fragment.appendChild(keyElement);
+
+if (insertLineBreak) {
+fragment.appendChild(document.createElement('br'));
+};
+
 })
 
+return fragment;
   },
 
   _triggerEvent(handlerName) {
