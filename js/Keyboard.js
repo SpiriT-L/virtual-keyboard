@@ -8,6 +8,7 @@ const but = document.querySelector('button');
 const main = create('main', '');
 main.className = 'main';
 
+
 export default class Keyboard {
   constructor(rowsOrder) {
     this.rowsOrder = rowsOrder;
