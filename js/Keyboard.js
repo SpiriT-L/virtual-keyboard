@@ -21,7 +21,7 @@ export default class Keyboard {
       'output',
       null,
       main,
-      ['placeholder', 'Start type something...'],
+      ['placeholder', 'Click here...'],
       ['rows', 5],
       ['cols', 50],
       ['spellcheck', false],
