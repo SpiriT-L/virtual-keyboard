@@ -28,6 +28,14 @@ const Keyboard = {
 
     this.elements.main.appendChild(this.elements.keysContainer);
     document.body.appendChild(this.elements.main);
+
+    document.querySelectorAll('.use-keyboard-input').forEach((element) => {
+      element.addEventListener('focus', () => {
+        this.open(element.value, (currentValue) => {
+          element.value = currentValue;
+        });
+      });
+    });
   },
 
   _createKeys() {
@@ -200,8 +208,8 @@ const Keyboard = {
 
   _triggerEvent(handlerName) {
     if (typeof this.eventHandlers[handlerName] == 'function') {
-    this.eventHandlers[handlerName](this.properties.value);
-    };
+      this.eventHandlers[handlerName](this.properties.value);
+    }
   },
 
   _toggleCapsLock() {
@@ -223,15 +231,43 @@ const Keyboard = {
     this.elements.main.classList.remove('keyboard--hidden');
   },
 
-  close() {},
+  close() {
+    this.properties.value = '';
+    this.eventHandlers.oninput = oninput;
+    this.eventHandlers.onclose = onclose;
+    this.elements.main.classList.add('keyboard--hidden');
+  },
 };
 
 window.addEventListener('DOMContentLoaded', function () {
   Keyboard.init();
-  Keyboard.open('decode',function (currentValue) {
-    console.log('value changed! here it is: ' + currentValue);
-
-  }, function (currentValue) {
-    console.log('keyboard closed! Finishing value: ' + currentValue);
-  } );
 });
+//* ================================================ BLOCK NAME ======================================================================== //
+// const Textarea = {
+//   elements: {
+//     main: null,
+//     textareaContainer: null,
+//   },
+
+//   init() {
+//     this.elements.main = document.create('textarea');
+//     this.elements.main.classList.add('use-keyboard-input');
+//   },
+// };
+// window.addEventListener('DOMContentLoaded', function () {
+//   Textarea.init();
+// });
+
+const h1 = document.createElement('h1');
+h1.innerHTML = 'Virtual Keyboard';
+document.body.append(h1);
+
+const textarea = document.createElement('textarea');
+textarea.className = "use-keyboard-input ";
+// textarea.placeholderName = "use-keyboard-input";
+textarea.placeholder = "Start type something...";
+textarea.cols = "75";
+textarea.rows = "10";
+// h1.innerHTML = 'Virtual Keyboard';
+document.body.append(textarea);
+// ================================================ BLOCK NAME ======================================================================== //

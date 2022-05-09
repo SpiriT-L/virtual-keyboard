@@ -10,8 +10,8 @@
   transition: bottom 0.4s;
 }
 
-.keyboard--hiden {
-  /* bottom: -100%; */
+.keyboard--hidden {
+  bottom: -100%;
 }
 
 .keyboard__keys {
