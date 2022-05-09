@@ -12,9 +12,11 @@ body {
   background: #e0e0e0;
 }
 
-main {
+.main {
   width: 102rem;
   margin: 0 auto;
+  height: 90vh;
+  position: relative;
 }
 
 .keyboard--hidden {
@@ -190,4 +192,20 @@ textarea.output {
     opacity: 0;
     transform: scale(2.5);
 }
+}
+
+.remark {
+  font-size: 1.8rem;
+  text-align: right;
+  position: absolute;
+  /* margin-bottom: 20px; */
+  color: #999;
+  bottom: 30px;
+  right: 0;
+}
+
+.title {
+  font-size: 4.8rem;
+  text-align: center;
+  margin: 10px;
 }

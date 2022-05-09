@@ -6,6 +6,7 @@ import Key from './Key.js';
 const but = document.querySelector('button');
 
 const main = create('main', '');
+main.className = 'main';
 
 export default class Keyboard {
   constructor(rowsOrder) {
@@ -289,4 +290,15 @@ export default class Keyboard {
   close() {
     this.container.classList.add('keyboard--hidden');
   }
+
 }
+
+let h1 = document.createElement('h1');
+h1.className = 'title';
+h1.innerHTML = 'Virtual keyboard';
+main.prepend(h1);
+
+let divRemark = document.createElement('div');
+divRemark.className = 'remark';
+divRemark.innerHTML = '<p>* Клавиатура создана в операционной системе Windows</p>';
+main.append(divRemark);
